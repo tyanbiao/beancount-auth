@@ -2,11 +2,11 @@
 
 beancount-auth 通过反向代理的方式为 Fava 提供了账号密码登录的功能，并且可以修改 Fava 返回的 HTML，注入一段 JavaScript代码，从而拓展 Fava 的功能。beancount-auth 默认添加了退出登录的选项。
 
-![登录界面](document/login.png)
+![登录界面](doc/login.png)
 
 <center>登录页面</center>
 
-![fava界面](document/main.png)  
+![fava界面](doc/main.png)  
 
 <center>Fava页面</center>  
 
