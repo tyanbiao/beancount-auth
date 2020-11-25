@@ -15,7 +15,8 @@
     "koa-mount": "^4.0.0",
     "koa-session": "^6.1.0",
     "koa-static": "^5.0.0",
-    "koa-views": "^6.3.1"
+    "koa-views": "^6.3.1",
+    "path-match": "^1.2.4"
   },
   "devDependencies": {
     "eslint": "^7.14.0",

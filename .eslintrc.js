@@ -4,10 +4,11 @@ module.exports = {
     node: true,
     es6: true,
   },
+  extends: ['plugin:prettier/recommended'],
   parserOptions: {
+    ecmaVersion: 2017,
     sourceType: 'module',
   },
-  extends: ['plugin:prettier/recommended'],
   rules: {
     semi: ['error', 'never', {beforeStatementContinuationChars: 'always'}],
   },
