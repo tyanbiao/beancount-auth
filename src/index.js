@@ -1,6 +1,5 @@
 const path = require('path')
 const Koa = require('koa')
-const http = require('http')
 const session = require('koa-session')
 const views = require('koa-views')
 const server = require('koa-static')
@@ -12,13 +11,14 @@ const router = require('./middleware/router')
 const error = require('./middleware/error')
 const {
   session: sessionConf,
-  security: securityConf,
+  secrets,
+  application: applicationConf,
   beancount: beancountConf,
 } = require('../config')
 
 const app = new Koa()
 
-app.keys = securityConf.secrets
+app.keys = secrets
 
 // 模板引擎中间件
 app.use(
@@ -53,4 +53,7 @@ app.use(bodyParser())
 // 路由中间件
 app.use(router.routes()).use(router.allowedMethods())
 
-http.createServer(app.callback()).listen(3000)
+const {port, host} = applicationConf
+app.listen(port, host, () => {
+  console.log(`application is running on ${host}:${port}`)
+})

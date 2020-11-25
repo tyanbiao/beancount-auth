@@ -5,10 +5,11 @@ const beancount = {
   injectContent: '\n<script src="/static/inject.js"></script>',
 }
 
-const security = {
-  username: 'root',
-  password: 'root',
-  secrets: ['$2y$12$zW43chMYvwsz9BDA'],
+const application = {
+  username: 'root', // 登录用户名
+  password: 'root', // 登录密码
+  host: '127.0.0.1',
+  port: 3000,
 }
 
 const session = {
@@ -29,6 +30,7 @@ const session = {
 
 module.exports = {
   beancount,
-  security,
+  application,
   session,
+  secrets: ['$2y$12$zW43chMYvwsz9BDA', 'jI2kgRm9F37ReX4oKSyPOMO2SN3Ve '],
 }

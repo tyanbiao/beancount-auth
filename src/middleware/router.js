@@ -1,6 +1,6 @@
 const Router = require('@koa/router')
 const {
-  security: securityConf,
+  application: applicationConf,
   beancount: beancountConf,
 } = require('../../config')
 
@@ -10,7 +10,7 @@ router.get('/', async (ctx, next) => ctx.response.redirect(beancountConf.path))
 
 router.get('/login', async (ctx, next) => {
   await ctx.render('login', {
-    title: 'FavaAuth',
+    title: 'BeancountAuth',
   })
 })
 
@@ -26,8 +26,8 @@ router.delete('/logout', async (ctx, next) => {
 router.post('/login', async (ctx, next) => {
   const body = ctx.request.body
   if (
-    body.username.trim() === securityConf.username &&
-    body.password.trim() === securityConf.password
+    body.username.trim() === applicationConf.username &&
+    body.password.trim() === applicationConf.password
   ) {
     ctx.session.user = body.username
     ctx.session.signin = true
@@ -35,7 +35,7 @@ router.post('/login', async (ctx, next) => {
       code: 0,
       message: 'success',
       data: {
-        username: securityConf.username,
+        username: applicationConf.username,
         timestamp: Date.now(),
       },
     })
