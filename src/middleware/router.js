@@ -1,4 +1,6 @@
 const Router = require('@koa/router')
+const md5 = require('blueimp-md5')
+
 const {
   application: applicationConf,
   beancount: beancountConf,
@@ -27,7 +29,7 @@ router.post('/login', async (ctx, next) => {
   const body = ctx.request.body
   if (
     body.username.trim() === applicationConf.username &&
-    body.password.trim() === applicationConf.password
+    body.password.trim() === md5(applicationConf.password)
   ) {
     ctx.session.user = body.username
     ctx.session.signin = true

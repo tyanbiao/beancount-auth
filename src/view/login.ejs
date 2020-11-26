@@ -16,6 +16,7 @@
     </form>
   </div>
   <script src="/static/axios.min.js"></script>
+  <script src="/static/md5.min.js"></script>
   <script>
     const submitBtn = document.querySelector('#submit')
     submitBtn.addEventListener('click', (e) => {
@@ -32,7 +33,7 @@
       }
       axios.post('/login', {
         username,
-        password
+        password: md5(password),
       })
       .then(res => {
         if (res.data && res.data.code === 0) {
