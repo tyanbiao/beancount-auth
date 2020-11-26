@@ -38,10 +38,14 @@ fava main.bean --host 127.0.0.1 --prefix /fava
   }
 
   const application = {
-    username: 'root', // 设置用户名
-    password: 'root', // 设置登录密码
+    username: 'root', // 登录用户名
+    password: 'root', // 登录密码
     host: '127.0.0.1',
     port: 3000,
+    sslEnabled: true, // 是否启用 https
+    sslCert: 'ssl/server.crt', // 证书
+    sslKey: 'ssl/server.key', // 私钥
+    sslKeyPassphrase: '', // 私钥密码，可选
   }
   ```
 
@@ -50,6 +54,7 @@ fava main.bean --host 127.0.0.1 --prefix /fava
 ```sh
 npm start
 ```
+启动成功后打印：application is running on https://127.0.0.1:3000
 
 ## 扩展
 beancount-auth 默认会将 `/src/static/inject.js` 注入到 Fava 的 HTML，如果你需要扩展 Fava 的 UI，只要在这个文件里加入你的逻辑即可。

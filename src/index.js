@@ -1,4 +1,7 @@
 const path = require('path')
+const fs = require('fs')
+const https = require('https')
+const http = require('http')
 const Koa = require('koa')
 const session = require('koa-session')
 const views = require('koa-views')
@@ -54,6 +57,18 @@ app.use(bodyParser())
 app.use(router.routes()).use(router.allowedMethods())
 
 const {port, host} = applicationConf
-app.listen(port, host, () => {
-  console.log(`application is running on ${host}:${port}`)
-})
+
+if (applicationConf.sslEnabled) {
+  const options = {
+    key: fs.readFileSync(path.resolve(process.cwd(), applicationConf.sslKey)),
+    cert: fs.readFileSync(path.resolve(process.cwd(), applicationConf.sslCert)),
+    passphrase: applicationConf.sslKeyPassphrase,
+  }
+  https.createServer(options, app.callback()).listen(port, host, () => {
+    console.log(`application is running on https://${host}:${port}`)
+  })
+} else {
+  http.createServer(app.callback()).listen(port, host, () => {
+    console.log(`application is running on http://${host}:${port}`)
+  })
+}

@@ -38,8 +38,9 @@
       .then(res => {
         if (res.data && res.data.code === 0) {
           console.log('登录成功')
-          const redirect = new URL(location.href).searchParams.get('redirect') || '/'
-          location.href = redirect
+          const url = new URL(location.href)
+          url.pathname = url.searchParams.get('redirect') || '/'
+          location.href = url.href
         } else {
           alert(res.data.message)
         }

@@ -1,4 +1,5 @@
 const http = require('http')
+const url = require('url')
 const {injectContent} = require('../../config').beancount
 
 module.exports = (request, response, options) => {
@@ -21,6 +22,13 @@ module.exports = (request, response, options) => {
             resolve()
           })
         } else {
+          if (pResonse.statusCode === 302 || pResonse.statusCode === 301) {
+            response.setHeader(
+              'location',
+              convertLocation(response.getHeader('location')),
+            )
+          }
+          response.setHeader('X-Forwarded-Proto', 'https')
           pResonse.pipe(response)
           pResonse.on('end', resolve)
         }
@@ -44,4 +52,12 @@ function contentIsHTML(resonseIncoming) {
     contentType &&
     contentType.indexOf('text/html') === 0
   )
+}
+
+// 去除 302 location 中的协议，fava 重定向会默认使用 http 协议
+function convertLocation(location) {
+  if (!location) {
+    return location
+  }
+  return location.replace(/^https?\:/i, '')
 }

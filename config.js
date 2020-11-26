@@ -10,6 +10,10 @@ const application = {
   password: 'root', // 登录密码
   host: '127.0.0.1',
   port: 3000,
+  sslEnabled: true, // 是否启用 https
+  sslCert: 'ssl/server.crt', // 证书
+  sslKey: 'ssl/server.key', // 私钥
+  sslKeyPassphrase: '', // 私钥密码，可选
 }
 
 const session = {
